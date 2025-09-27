@@ -128,8 +128,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/subscriptions/quote', [SubscriptionsController::class, 'quote']);
     Route::get('/subscriptions', [SubscriptionsController::class, 'index']);
     Route::post('/subscriptions', [SubscriptionsController::class, 'subscribe']);
+    Route::post('/subscriptions/test', [SubscriptionsController::class, 'createTestSubscription']);
     Route::get('/subscriptions/{id}/meals', [SubscriptionsController::class, 'getMeals']);
     Route::post('/subscriptions/{id}/meals', [SubscriptionsController::class, 'setMeals']);
+    Route::delete('/subscriptions/{id}/meals', [SubscriptionsController::class, 'removeMeal']);
     Route::post('/subscriptions/{id}/pause', [SubscriptionsController::class, 'pause']);
     Route::post('/subscriptions/{id}/resume', [SubscriptionsController::class, 'resume']);
     Route::post('/subscriptions/{id}/cancel', [SubscriptionsController::class, 'cancel']);

@@ -1,0 +1,579 @@
+{
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789012",
+		"name": "Moon Diet - Subscription Meals API",
+		"description": "Collection for testing subscription meals API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"phone\": \"+1234567890\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Menu Items",
+			"item": [
+				{
+					"name": "Get Menu Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/menu/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"menu",
+								"items"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meal Plans",
+			"item": [
+				{
+					"name": "Get Meal Plans",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/plans",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Meal Plan Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/plans/{{meal_plan_id}}/items",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"plans",
+								"{{meal_plan_id}}",
+								"items"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subscriptions",
+			"item": [
+				{
+					"name": "Get Quote",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"meal_plan_id\": {{meal_plan_id}},\n    \"meal_plan_variant_id\": {{meal_plan_variant_id}},\n    \"duration_type\": \"week\",\n    \"meals_per_day\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/quote",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"quote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Subscription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"meal_plan_id\": {{meal_plan_id}},\n    \"meal_plan_variant_id\": {{meal_plan_variant_id}},\n    \"duration_type\": \"week\",\n    \"meals_per_day\": 2,\n    \"start_date\": \"{{$isoTimestamp}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Subscriptions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subscription Meals",
+			"item": [
+				{
+					"name": "Get Subscription Meals",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/meals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Subscription Meals - Valid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selections\": [\n        {\n            \"day_index\": 0,\n            \"menu_item_id\": {{menu_item_id_1}}\n        },\n        {\n            \"day_index\": 1,\n            \"menu_item_id\": {{menu_item_id_2}}\n        },\n        {\n            \"day_index\": 2,\n            \"menu_item_id\": {{menu_item_id_1}}\n        },\n        {\n            \"day_index\": 3,\n            \"menu_item_id\": {{menu_item_id_2}}\n        },\n        {\n            \"day_index\": 4,\n            \"menu_item_id\": {{menu_item_id_1}}\n        },\n        {\n            \"day_index\": 5,\n            \"menu_item_id\": {{menu_item_id_2}}\n        },\n        {\n            \"day_index\": 6,\n            \"menu_item_id\": {{menu_item_id_1}}\n        },\n        {\n            \"day_index\": 7,\n            \"menu_item_id\": {{menu_item_id_2}}\n        },\n        {\n            \"day_index\": 8,\n            \"menu_item_id\": {{menu_item_id_1}}\n        },\n        {\n            \"day_index\": 9,\n            \"menu_item_id\": {{menu_item_id_2}}\n        },\n        {\n            \"day_index\": 10,\n            \"menu_item_id\": {{menu_item_id_1}}\n        },\n        {\n            \"day_index\": 11,\n            \"menu_item_id\": {{menu_item_id_2}}\n        },\n        {\n            \"day_index\": 12,\n            \"menu_item_id\": {{menu_item_id_1}}\n        },\n        {\n            \"day_index\": 13,\n            \"menu_item_id\": {{menu_item_id_2}}\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/meals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Subscription Meals - Invalid Day Index",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selections\": [\n        {\n            \"day_index\": -1,\n            \"menu_item_id\": {{menu_item_id_1}}\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/meals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Subscription Meals - Day Index Out of Range",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selections\": [\n        {\n            \"day_index\": 20,\n            \"menu_item_id\": {{menu_item_id_1}}\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/meals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Subscription Meals - Invalid Menu Item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selections\": [\n        {\n            \"day_index\": 0,\n            \"menu_item_id\": 99999\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/meals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Subscription Meals - Wrong Total Count",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selections\": [\n        {\n            \"day_index\": 0,\n            \"menu_item_id\": {{menu_item_id_1}}\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/meals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Subscription Meals - Unauthorized",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"selections\": [\n        {\n            \"day_index\": 0,\n            \"menu_item_id\": {{menu_item_id_1}}\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/meals",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"subscriptions",
+								"{{subscription_id}}",
+								"meals"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "subscription_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "meal_plan_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "meal_plan_variant_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "menu_item_id_1",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "menu_item_id_2",
+			"value": "2",
+			"type": "string"
+		}
+	]
+}
