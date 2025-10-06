@@ -21,6 +21,29 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## Payments
+
+### Mada Integration
+
+Environment variables:
+
+```
+MADA_MERCHANT_ID=your_merchant_id
+MADA_SECRET_KEY=your_secret
+MADA_API_ENDPOINT=https://<provider-endpoint>
+MADA_CALLBACK_URL=https://<your-domain>/api/payments/mada/callback
+```
+
+Flow:
+
+1. Create an order via `POST /api/orders/checkout`.
+2. Create payment intent via `POST /api/payments/create-intent` with body:
+   ```json
+   {"type":"order","id":<ORDER_ID>,"provider":"mada"}
+   ```
+   Response includes `redirect_url` to send the user to the Mada page.
+3. Provider calls `POST /api/payments/mada/callback` with signed payload. The system verifies signature and marks the corresponding `Payment` as `succeeded` or `failed`.
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.

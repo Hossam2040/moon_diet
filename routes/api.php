@@ -13,6 +13,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\MealPlansController;
 use App\Http\Controllers\SubscriptionsController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\DevMadaController;
 use App\Http\Controllers\OffersController;
 
 // Authentication endpoints (stateless; uses Sanctum tokens)
@@ -138,9 +139,20 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Payments
     Route::post('/payments/create-intent', [PaymentsController::class, 'createIntent']);
+    Route::get('/payments/{id}/invoice', [PaymentsController::class, 'invoice']);
+    Route::get('/payments/{id}/invoice.pdf', [PaymentsController::class, 'invoicePdf']);
 });
 
 // Webhooks (no auth)
 Route::post('/payments/stripe/webhook', [PaymentsController::class, 'webhookStripe']);
+Route::post('/payments/mada/callback', [PaymentsController::class, 'callbackMada']);
+
+// Dev-only Mada mock endpoints
+if (app()->environment(['local', 'testing'])) {
+    Route::post('/_dev/mada/payments', [DevMadaController::class, 'create']);
+    Route::get('/dev/mada/redirect', [DevMadaController::class, 'redirect']);
+    Route::post('/_dev/mada/sign', [DevMadaController::class, 'sign']);
+    Route::get('/dev/mada/auto-callback', [DevMadaController::class, 'autoCallback']);
+}
 
 

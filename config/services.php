@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'mada' => [
+        'merchant_id' => env('MADA_MERCHANT_ID'),
+        'secret_key' => env('MADA_SECRET_KEY'),
+        'endpoint' => env('MADA_API_ENDPOINT', 'https://api.mada.local'),
+        'callback_url' => env('MADA_CALLBACK_URL'),
+        'mock_local' => env('MADA_MOCK_LOCAL', true),
+        'auto_complete_local' => env('MADA_AUTO_COMPLETE_LOCAL', true),
+    ],
+
 ];
